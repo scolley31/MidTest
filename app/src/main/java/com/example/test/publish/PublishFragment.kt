@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import com.example.test.R
 import com.example.test.databinding.FragmentPublishBinding
 
 class PublishFragment: Fragment() {
@@ -36,6 +39,13 @@ class PublishFragment: Fragment() {
                 Log.d("article","article = ${viewModel.articles.value}")
             }
         })
+
+
+        binding.addArticle.setOnClickListener {view: View -> view.findNavController().navigate(
+            PublishFragmentDirections.actionPublishFragmentToPublishDialog()
+        )
+        }
+
 
 
 

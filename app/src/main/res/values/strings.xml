@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Test</string>
     <string name="publisher">Publisher</string>
+    <string name="addArticle">arrarticle</string>
+    <string name="inputTitle">Input Title</string>
+    <string name="inputCategory">Input Category</string>
+    <string name="sendarticle">Send Article</string>
 </resources>

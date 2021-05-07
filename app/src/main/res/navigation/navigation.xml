@@ -2,9 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
+    xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/publishFragment">
     <fragment
         android:id="@+id/publishFragment"
         android:name="com.example.test.publish.PublishFragment"
-        android:label="PublishFragment" />
+        android:label="PublishFragment"
+        tools:layout="@layout/fragment_publish">
+        <action
+            android:id="@+id/action_publishFragment_to_publishDialog"
+            app:destination="@id/publishDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/publishDialog"
+        android:name="com.example.test.publishDialog.PublishDialog"
+        android:label="PublishDialog"
+        tools:layout="@layout/fragment_publish_dialog"/>
+
 </navigation>
