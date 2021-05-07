@@ -6,7 +6,7 @@ import java.util.*
 
 class PublishDialogViewModel:ViewModel() {
 
-    val author: MutableMap<String, Any> = HashMap()
+    val article: MutableMap<String, Any> = HashMap()
 
     val content = MutableLiveData<String>()
 

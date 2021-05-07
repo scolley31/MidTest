@@ -5,14 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.test.R
 import com.example.test.databinding.FragmentPublishDialogBinding
-import com.example.test.publish.PublishViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.HashMap
 
 class PublishDialog(): DialogFragment() {
 
@@ -59,39 +58,51 @@ class PublishDialog(): DialogFragment() {
         return binding.root
     }
 
+
+
     private fun addPost() {
 
-        viewModel.author["author"] = "Scolley"
-        viewModel.author["id"] = "19900412"
-        viewModel.author["title"] = viewModel.title.value.toString()
-        viewModel.author["category"] = viewModel.category.value.toString()
-        viewModel.author["content"] = viewModel.content.value.toString()
-        viewModel.author["createdTime"] = viewModel.date
+        viewModel.article["author"] = hashMapOf(
+            "email" to "scolley31@gmail.com",
+            "id" to "scolley31",
+            "name" to "Scolley"
+        )
+        viewModel.article["title"] = viewModel.title.value.toString()
+        viewModel.article["category"] = viewModel.category.value.toString()
+        viewModel.article["content"] = viewModel.content.value.toString()
+        viewModel.article["createdTime"] = viewModel.date
 
-        db.collection("articles")
-            .add(viewModel.author)
-            .addOnSuccessListener { documentReference ->
-                Log.d(
-                    "TAG",
-                    "DocumentSnapshot added with ID: " + documentReference.id
-                )
+        var docRef = db.collection("Members")
+            .whereEqualTo("email", "scolley31@gmail.com")
+            .whereEqualTo("id", "scolley31")
+            .whereEqualTo("name", "Scolley")
+        docRef.get().addOnSuccessListener {
+            if (it.isEmpty) {
+                Toast.makeText(context, "無此人喔", Toast.LENGTH_LONG).show()
+            } else {
+                    db.collection("Articles")
+                        .add(viewModel.article)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(
+                                "TAG",
+                                "DocumentSnapshot added with ID: " + documentReference.id
+                            )
+                        }
+                        .addOnFailureListener { e -> Log.w("TAG", "Error adding document", e) }
+
+                    db.collection("Articles")
+                        .get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                for (document in task.result!!) {
+                                    Log.d("ADD", document.id + " => " + document.data)
+                                }
+                            } else {
+                                Log.w("ADD", "Error getting documents.", task.exception)
+                            }
+                        }
             }
-            .addOnFailureListener { e -> Log.w("TAG", "Error adding document", e) }
-
-
-        db.collection("articles")
-            .get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    for (document in task.result!!) {
-                        Log.d("ADD", document.id + " => " + document.data)
-                    }
-                } else {
-                    Log.w("ADD", "Error getting documents.", task.exception)
-                }
-            }
-
+        }
     }
-
 
 }
