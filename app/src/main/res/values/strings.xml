@@ -5,4 +5,5 @@
     <string name="inputTitle">Input Title</string>
     <string name="inputCategory">Input Category</string>
     <string name="sendarticle">Send Article</string>
+    <string name="inputContent">Input Content</string>
 </resources>
