@@ -4,9 +4,22 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Author(
-    val author: String?,
-    val article: List<Article?>
+data class fireBaseData(
+
+    val articles: HashMap<String,data>,
+
+) : Parcelable
+
+@Parcelize
+data class data(
+
+    val author: HashMap<String,String>,
+    val createdTime: String?,
+    val id: Int,
+    val title: String?,
+    val category: String?,
+    val content: String?
+
 ) : Parcelable
 
 @Parcelize

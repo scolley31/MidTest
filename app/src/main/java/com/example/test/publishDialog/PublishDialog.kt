@@ -62,6 +62,11 @@ class PublishDialog(): DialogFragment() {
 
     private fun addPost() {
 
+        val articles = FirebaseFirestore.getInstance()
+            .collection("articles")
+
+        val document = articles.document()
+
         viewModel.article["author"] = hashMapOf(
             "email" to "scolley31@gmail.com",
             "id" to "scolley31",
@@ -71,6 +76,7 @@ class PublishDialog(): DialogFragment() {
         viewModel.article["category"] = viewModel.category.value.toString()
         viewModel.article["content"] = viewModel.content.value.toString()
         viewModel.article["createdTime"] = viewModel.date
+        viewModel.article["id"] = document.id
 
         var docRef = db.collection("Members")
             .whereEqualTo("email", "scolley31@gmail.com")

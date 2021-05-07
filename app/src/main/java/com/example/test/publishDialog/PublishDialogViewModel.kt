@@ -14,6 +14,6 @@ class PublishDialogViewModel:ViewModel() {
 
     val category = MutableLiveData<String>()
 
-    val date = Date()
+    val date = Calendar.getInstance().timeInMillis
 
 }
