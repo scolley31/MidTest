@@ -8,7 +8,12 @@ class PublishDialogViewModel:ViewModel() {
 
     val author: MutableMap<String, Any> = HashMap()
 
-    val content= MutableLiveData<String>()
+    val content = MutableLiveData<String>()
+
+    val title = MutableLiveData<String>()
+
+    val category = MutableLiveData<String>()
+
 
     val date = Date()
 

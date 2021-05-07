@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.test.R
@@ -36,11 +37,24 @@ class PublishDialog(): DialogFragment() {
 
         binding = FragmentPublishDialogBinding.inflate(inflater)
 
+        binding.inputTitle.doOnTextChanged { text, start, before, count ->
+            viewModel.title.value = text.toString()
+            Log.d("test", "viewModel.title.value = ${viewModel.title.value}")
+        }
+
+        binding.inputCategory.doOnTextChanged { text, start, before, count ->
+            viewModel.category.value = text.toString()
+            Log.d("test", "viewModel.category.value = ${viewModel.category.value}")
+        }
+
+        binding.inputContent.doOnTextChanged { text, start, before, count ->
+            viewModel.content.value = text.toString()
+            Log.d("test", "viewModel.content.value = ${viewModel.content.value}")
+        }
+
         binding.sendarticlebutton.setOnClickListener {
             addPost()
         }
-
-
 
         return binding.root
     }
@@ -48,13 +62,11 @@ class PublishDialog(): DialogFragment() {
     private fun addPost() {
 
         viewModel.author["author"] = "Scolley"
-        viewModel.author["category"] = "FireStore"
-        viewModel.author["content"] = "You can finish this job"
-        viewModel.author["createdTime"] = viewModel.date
         viewModel.author["id"] = "19900412"
-        viewModel.author["title"] = "FireStore"
-
-
+        viewModel.author["title"] = viewModel.title.value.toString()
+        viewModel.author["category"] = viewModel.category.value.toString()
+        viewModel.author["content"] = viewModel.content.value.toString()
+        viewModel.author["createdTime"] = viewModel.date
 
         db.collection("articles")
             .add(viewModel.author)
