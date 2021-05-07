@@ -80,7 +80,7 @@ class PublishDialog(): DialogFragment() {
             if (it.isEmpty) {
                 Toast.makeText(context, "無此人喔", Toast.LENGTH_LONG).show()
             } else {
-                    db.collection("Articles")
+                    db.collection("articles")
                         .add(viewModel.article)
                         .addOnSuccessListener { documentReference ->
                             Log.d(
@@ -90,7 +90,7 @@ class PublishDialog(): DialogFragment() {
                         }
                         .addOnFailureListener { e -> Log.w("TAG", "Error adding document", e) }
 
-                    db.collection("Articles")
+                    db.collection("articles")
                         .get()
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {

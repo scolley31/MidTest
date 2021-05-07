@@ -28,6 +28,8 @@ class PublishFragment: Fragment() {
 
         binding.viewModel = viewModel
 
+        viewModel.addDate()
+
         val adapter = PublishAdapter()
         binding.articles.adapter = adapter
 
